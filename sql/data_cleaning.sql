@@ -8,8 +8,7 @@ Environment: SQL Server (SSMS)
 ============================================================
 
 Objective:
-This script performs data validation and cleaning before
-exploratory data analysis and machine learning modeling.
+This script performs data validation and cleaning before exploratory data analysis and machine learning modeling.
 
 Steps Covered:
 1. Check total records
