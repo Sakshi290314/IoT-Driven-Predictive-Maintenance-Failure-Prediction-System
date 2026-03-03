@@ -6,8 +6,7 @@ Database: predictive_maintenance_db
 ============================================================
 
 Project Overview:
-This script initializes the SQL Server database used in the
-IoT-Driven Predictive Maintenance Analytics project.
+This script initializes the SQL Server database used in the IoT-Driven Predictive Maintenance Analytics project.
 
 The script performs the following:
 
