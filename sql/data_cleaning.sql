@@ -78,17 +78,44 @@ WHERE air_temperature_k < 200 OR air_temperature_k > 400
 GO
 
 
-------------------------------------------------------------
--- 5. Validate Target & Failure Type Consistency
-------------------------------------------------------------
+/* ============================================================
+   5️⃣ VALIDATE TARGET & FAILURE TYPE CONSISTENCY (CHECK FIRST)
+   ============================================================ */
 
--- Case 1: Target = 0 but failure_type exists
+-- Case A: Target = 0 but failure_type exists
 SELECT *
 FROM machine_sensor_data
-WHERE target = 0 AND failure_type IS NOT NULL;
+WHERE target = 0
+AND failure_type IS NOT NULL;
 
--- Case 2: Target = 1 but failure_type is NULL
+-- Case B: Target = 1 but failure_type = 'No Failure'
 SELECT *
 FROM machine_sensor_data
-WHERE target = 1 AND failure_type IS NULL;
+WHERE target = 1
+AND failure_type = 'No Failure';
 GO
+
+
+/* ============================================================
+   6️⃣ STANDARDIZE FAILURE TYPE (SAFE UPDATE USING TRANSACTION)
+   ============================================================ */
+
+BEGIN TRANSACTION;
+
+-- Case A Fix: Non-failure should not have failure_type
+UPDATE machine_sensor_data
+SET failure_type = NULL
+WHERE target = 0
+AND failure_type IS NOT NULL;
+
+-- Case B Fix: Rename ambiguous failure
+UPDATE machine_sensor_data
+SET failure_type = 'Unspecified Failure'
+WHERE target = 1
+AND failure_type = 'No Failure';
+
+-- Verify results after update
+SELECT target, failure_type, COUNT(*) AS total_count
+FROM machine_sensor_data
+GROUP BY target, failure_type
+ORDER BY target;
