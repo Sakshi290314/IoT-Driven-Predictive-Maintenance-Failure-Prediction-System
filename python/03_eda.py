@@ -268,7 +268,7 @@ plt.show()
 
 
 # ============================================================
-# STEP 9 — INTERVIEW SUMMARY
+# STEP 9 — SUMMARY
 # ============================================================
 print("\n" + "="*55)
 print("  EDA COMPLETE — INTERVIEW SUMMARY")
