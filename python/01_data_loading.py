@@ -11,8 +11,8 @@ def load_data_from_sql():
 
     conn = pyodbc.connect(
         "DRIVER={SQL Server};"
-        "SERVER=YOUR_SERVER_NAME;"          # change this
-        "DATABASE=YOUR_DATABASE_NAME;"      # change this
+        "SERVER=.\SQLEXPRESS;"          # change this
+        "DATABASE=predictive_maintenance_db;"      # change this
         "Trusted_Connection=yes;"
     )
 
