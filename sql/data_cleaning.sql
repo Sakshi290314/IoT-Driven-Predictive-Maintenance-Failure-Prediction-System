@@ -119,3 +119,17 @@ SELECT target, failure_type, COUNT(*) AS total_count
 FROM machine_sensor_data
 GROUP BY target, failure_type
 ORDER BY target;
+
+/* ============================================================
+   7️⃣ CREATE CLEAN VIEW FOR EDA & MODELING
+   (Avoid deleting raw data)
+   ============================================================ */
+
+CREATE OR ALTER VIEW vw_clean_machine_sensor_data AS
+SELECT *
+FROM machine_sensor_data
+WHERE rotational_speed_rpm > 0
+  AND torque_nm > 0
+  AND air_temperature_k BETWEEN 200 AND 400
+  AND process_temperature_k BETWEEN 200 AND 400;
+GO
